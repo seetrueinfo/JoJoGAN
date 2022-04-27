@@ -109,7 +109,8 @@ def get_landmark(filepath, predictor):
 
     img = dlib.load_rgb_image(filepath)
     dets = detector(img, 1)
-    assert len(dets) > 0, "Face not detected, try another face image"
+    if not dets:
+        return []
 
     for k, d in enumerate(dets):
         shape = predictor(img, d)
@@ -131,6 +132,8 @@ def align_face(filepath, output_size=1024, transform_size=4096, enable_padding=T
     ensure_checkpoint_exists("models/dlibshape_predictor_68_face_landmarks.dat")
     predictor = dlib.shape_predictor("models/dlibshape_predictor_68_face_landmarks.dat")
     lm = get_landmark(filepath, predictor)
+    if len(lm)==0:
+        return None
 
     lm_chin = lm[0: 17]  # left-right
     lm_eyebrow_left = lm[17: 22]  # left-right
