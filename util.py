@@ -85,6 +85,15 @@ def load_source(files, generator, device='cuda'):
         
     return sources
 
+def save_image(image, size=None, mode='nearest', unnorm=False, save_location="output.jpg"):
+    if image.is_cuda:
+        image = image.cpu() 
+    image = image.permute(2, 1, 0).detach().numpy() 
+    pImage = Image.fromarray((image * 255).astype(np.uint8))
+    pImage = pImage.rotate(270)
+    pImage.save(save_location)
+    display(pImage) 
+    
 def display_image(image, size=None, mode='nearest', unnorm=False, title=''):
     # image is [3,h,w] or [1,3,h,w] tensor [0,1]
     if not isinstance(image, torch.Tensor):
