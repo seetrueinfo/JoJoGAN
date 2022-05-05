@@ -176,8 +176,8 @@ def align_face(filepath, output_size=1024, transform_size=4096, enable_padding=T
     # read image
     img = Image.open(filepath)
 
-    transform_size = output_size
-    enable_padding = True
+    #transform_size = output_size
+    #enable_padding = True
 
     # Shrink.
     shrink = int(np.floor(qsize / output_size * 0.5))
