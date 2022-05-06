@@ -92,7 +92,6 @@ def save_image(image, size=None, mode='nearest', unnorm=False, save_location="ou
     pImage = Image.fromarray((image * 255).astype(np.uint8))
     pImage = pImage.rotate(270)
     pImage.save(save_location)
-    display(pImage) 
     
 def display_image(image, size=None, mode='nearest', unnorm=False, title=''):
     # image is [3,h,w] or [1,3,h,w] tensor [0,1]
